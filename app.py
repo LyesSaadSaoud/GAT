@@ -1,12 +1,11 @@
 import streamlit as st
 import os
 
-# Check password from environment variable
+# Check password from environment variable (Render-compatible)
 def check_password():
     def password_entered():
-        # Fetch password from environment variable, not st.secrets
-        stored_pw = os.environ.get("password", "")
-        if st.session_state["password"] == stored_pw:
+        correct_password = os.environ.get("password", "")  # ✅ Render will pass this if set in environment variables
+        if st.session_state["password"] == correct_password:
             st.session_state["password_correct"] = True
         else:
             st.session_state["password_correct"] = False
@@ -24,4 +23,4 @@ def check_password():
 if check_password():
     st.title("🦅 Generalized Annotation Tool (GAT)")
     st.write("Welcome to the Streamlit version of the GAT app.")
-    # Your core app logic here
+    # Add your annotation logic here
